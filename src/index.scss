@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@import "~ag-grid-community/src/styles/ag-grid.scss";
+@import "~ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham-mixin.scss";
+
+.ag-theme-balham {
+@include ag-theme-balham(())
+}
