@@ -8,7 +8,7 @@ const handleGetCountries = async (res) => {
     return res.send(cachedPlaces);
   }
   try {
-    const places = await axios(`${baseUrl}/places`);
+    const places = await axios(`${baseUrl}/places?typeId=country`);
     cachedPlaces = JSON.stringify(places.data);
     res.send(cachedPlaces);
   } catch (e) {

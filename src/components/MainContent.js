@@ -1,23 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStoreon } from 'storeon/react';
 import { CountryTable } from './CountryTable';
+import { GoogleMap } from './GoogleMap';
+import { Header } from './Header';
 
 export const MainContent = () => {
   const { dispatch } = useStoreon('countries');
+  const [showTable, setShowTable] = useState(false);
 
-  const getCountries = async () => {
-    try {
-      const response = await fetch('http://localhost:5000/countries');
-      const countries = await response.json();
-      dispatch('countries/add', countries.data);
-    } catch (e) {
-      console.log('Errors', e);
-    }
-  };
+  const toggleShowTable = () => setShowTable((prevState) => !prevState);
 
   useEffect(() => {
-    getCountries();
+    dispatch('countries/get');
   }, []);
 
-  return <CountryTable />;
+  return (
+    <div style={{ height: '100%', width: '100%', position: 'relative' }}>
+      <Header toggleShowTable={toggleShowTable} />
+      <GoogleMap />
+      <CountryTable isVisible={showTable} />
+    </div>
+  );
 };
